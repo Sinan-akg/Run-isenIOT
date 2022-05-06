@@ -20,6 +20,7 @@ import com.example.runisenapp.ProfilePage
 import com.example.runisenapp.R
 import com.example.runisenapp.databinding.ActivityBluetoothBinding
 import androidx.core.view.isVisible
+import com.example.runisenapp.HomeActivity
 
 class BluetoothActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBluetoothBinding
@@ -38,12 +39,12 @@ class BluetoothActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bluetooth)
 
-        val imageClick4 = findViewById<ImageView>(R.id.backButton)
-        imageClick4.setOnClickListener {
+        val imageClick10 = findViewById<ImageView>(R.id.backButton)
+        imageClick10.setOnClickListener {
             val intent = Intent(this, ProfilePage::class.java)
             startActivity(intent)
-
         }
+
         binding = ActivityBluetoothBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

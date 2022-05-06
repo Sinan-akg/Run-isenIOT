@@ -68,7 +68,7 @@
         android:id="@+id/iconClock"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintEnd_toStartOf="@+id/time"
         app:layout_constraintHorizontal_bias="0.692"
@@ -106,33 +106,35 @@
         android:id="@+id/iconPas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintEnd_toStartOf="@+id/pas"
         app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iconWalk"
         app:srcCompat="@drawable/ic_pas" />
 
-    <Button
-        android:id="@+id/buttonStartRace"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonStartStopRace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginBottom="100dp"
         android:backgroundTint="#03A9F4"
-        android:text="Start Race"
+        android:text="Start"
+        app:icon="@drawable/ic_play"
         app:cornerRadius="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonStopRace"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="100dp"
         android:backgroundTint="#03A9F4"
-        android:text="Stop Race"
+        android:text="Reset"
+        app:icon="@drawable/ic_replay"
         app:cornerRadius="90dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -141,6 +143,8 @@
         android:id="@+id/backButton"
         android:layout_width="34dp"
         android:layout_height="46dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,13 +156,31 @@
 
         android:id="@+id/fragment_maps"
         android:name="com.example.runisenapp.MapsFragment"
-        android:layout_width="504dp"
-        android:layout_height="347dp"
+        android:layout_width="486dp"
+        android:layout_height="338dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/clock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/alice"
+        android:padding="10dp"
+        android:text="00:00:00"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toEndOf="@+id/time"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

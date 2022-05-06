@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "762527116860",
+    "firebase_url": "https://run-isenappfirebase-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "run-isenappfirebase",
+    "storage_bucket": "run-isenappfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762527116860:android:4b7e0fc312096e67601d39",
+        "android_client_info": {
+          "package_name": "com.example.runisenapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762527116860-25pfq82mjr2h9ml8gabsj6kno679ar8s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_11ylFjfBCGE6AeK0sziQL42WybFxHeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762527116860-25pfq82mjr2h9ml8gabsj6kno679ar8s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

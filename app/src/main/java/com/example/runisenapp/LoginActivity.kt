@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import com.example.runisenapp.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -32,9 +30,19 @@ class LoginActivity : AppCompatActivity() {
     //La reference Firebase
     private var auth: FirebaseAuth? = null
 
+    private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_login)
+
+        val imageClick9 = findViewById<ImageView>(R.id.backButton)
+        imageClick9.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
         initialisation()
 
     }
