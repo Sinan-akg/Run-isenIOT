@@ -12,6 +12,13 @@
         android:title="Profile"
         android:icon="@drawable/ic_profileicon"
         app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/history"
+        android:title="History"
+        android:icon="@drawable/ic_history"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/settingsMenu"
         android:title="Settings"

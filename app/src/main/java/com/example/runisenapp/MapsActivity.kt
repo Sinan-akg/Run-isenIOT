@@ -13,6 +13,7 @@ import androidx.annotation.NonNull
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.runisenapp.databinding.ActivityMapsBinding
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -26,6 +27,8 @@ class MapsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var map: GoogleMap
     private lateinit var lastLocation: Location
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
   //  private val LOCATION_PERMISSION_REQUEST = 1
     private var permissionDenied = false
 

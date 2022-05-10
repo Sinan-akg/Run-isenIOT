@@ -10,10 +10,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Build.VERSION_CODES.S
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.runisenapp.ProfilePage
@@ -31,9 +33,10 @@ class BluetoothActivity : AppCompatActivity() {
 
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy {
-        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothManager = getSystemService(BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +55,7 @@ class BluetoothActivity : AppCompatActivity() {
             bluetoothAdapter?.isEnabled == true ->
                 binding.bleScanStateImg.setOnClickListener {
                     startLeScanBLEWithPermission(!isScanning)
-                    // startLeScanBLEWithPermission(true)
+                    startLeScanBLEWithPermission(true)
                 }
 
             bluetoothAdapter != null ->
@@ -100,10 +103,11 @@ class BluetoothActivity : AppCompatActivity() {
             )
         } else {
             arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             )
         }
     }
+
 
 
     private fun startLeScanBLEWithPermission(enable: Boolean) {
@@ -111,9 +115,8 @@ class BluetoothActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION // si on a bien activé la localisation
             ) == PackageManager.PERMISSION_GRANTED //ok
-        ) {
-            startLeScanBLE(enable)
-        } else {
+        )
+         else {
             ActivityCompat.requestPermissions(
                 this, arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
@@ -123,7 +126,9 @@ class BluetoothActivity : AppCompatActivity() {
                 ), ALL_PERMISSION_REQUEST_CODE
             )
 
+
         }
+        startLeScanBLE(enable)
     }
 
 
@@ -145,9 +150,9 @@ class BluetoothActivity : AppCompatActivity() {
 
     private val scanCallBack = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
-            Log.d("BLEScanActivity", "result : ${result?.device?.address}, rssi : ${result?.rssi}")
+            Log.d("BLEScanActivity", "result : ${result.device?.address}, rssi : ${result.rssi}")
 
-            adapter?.apply {
+            adapter.apply {
                 addElement(result)
                 notifyDataSetChanged()
             }
@@ -165,7 +170,7 @@ class BluetoothActivity : AppCompatActivity() {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         if (ActivityCompat.checkSelfPermission(
                 this,
-                android.Manifest.permission.BLUETOOTH_CONNECT
+                Manifest.permission.BLUETOOTH_CONNECT
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             startActivityForResult(enableBtIntent, ENABLE_BLUETOOTH_REQUEST_CODE)

@@ -105,6 +105,7 @@ class HomeActivity : AppCompatActivity()
         when(item.itemId) {
             R.id.loginMenu -> startActivity(Intent(this, LoginActivity ::class.java))
             R.id.profileMenu -> startActivity(Intent(this, ProfilePage ::class.java))
+            R.id.history -> startActivity(Intent(this, HistoryPage :: class.java))
             R.id.settingsMenu -> startActivity(Intent(this, SettingsPage ::class.java))
             }
 
