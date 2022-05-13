@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RunisenApp">
         <activity
+            android:name=".SettingsPageData"
+            android:exported="false" />
+        <activity
             android:name=".HistoryPage"
             android:exported="false" />
         <activity
@@ -43,7 +46,6 @@
         <activity
             android:name=".ble.BLEAdapter"
             android:exported="false" />
-
         <activity
             android:name=".SemelleActivity"
             android:exported="false" />

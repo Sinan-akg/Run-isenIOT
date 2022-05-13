@@ -3,6 +3,8 @@ package com.example.runisenapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
@@ -127,8 +129,19 @@ class SettingsPage : AppCompatActivity() {
             toast.show()
         }
 
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
+        menuInflater.inflate(R.menu.menusettings,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
+        when(item.itemId) {
+            R.id.personalpage -> startActivity(Intent(this, SettingsPageData::class.java))
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

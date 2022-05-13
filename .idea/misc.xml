@@ -28,12 +28,14 @@
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/activity_profile_page.xml" value="0.19444444444444445" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/activity_semelle.xml" value="0.4" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/activity_settings_page.xml" value="0.264" />
+        <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/activity_settings_page_data.xml" value="0.2359375" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/cell_ble_characteristics.xml" value="0.4" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/cell_ble_scan.xml" value="0.4" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/cell_ble_services.xml" value="0.25" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/layout/fragment_maps.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/menu/menu.xml" value="0.25" />
         <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/menu/menubluetooth.xml" value="0.25" />
+        <entry key="..\:/Users/sinan/AndroidStudioProjects/RunisenApp/app/src/main/res/menu/menusettings.xml" value="0.25" />
       </map>
     </option>
   </component>
