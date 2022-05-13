@@ -10,11 +10,11 @@
         android:id="@+id/bt_location"
         android:layout_width="56dp"
         android:layout_height="38dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
         android:text="GO"
         app:cornerRadius="90dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/latitudeText"
         app:layout_constraintHorizontal_bias="0.777"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
@@ -170,7 +170,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
-        android:id="@+id/backButton"
+        android:id="@+id/backButtonn"
         android:layout_width="34dp"
         android:layout_height="46dp"
         android:layout_marginStart="50dp"
@@ -195,11 +195,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
+        android:id="@+id/latitudeText"
+        android:layout_width="316dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="@font/alice"
         android:text="Latitude"
         android:textColor="@color/black"
@@ -209,47 +209,17 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="101dp"
+        android:id="@+id/longitudeText"
+        android:layout_width="318dp"
         android:layout_height="26dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/alice"
         android:text="Longitude"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/tv_latitude"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
-
-    <TextView
-        android:id="@+id/tv_longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="35dp"
-        android:fontFamily="@font/alice"
-        android:text="0.0"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
-
-    <TextView
-        android:id="@+id/tv_latitude"
-        android:layout_width="28dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
-        android:fontFamily="@font/alice"
-        android:text="0.0"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_maps" />
+        app:layout_constraintStart_toEndOf="@+id/bt_location"
+        app:layout_constraintTop_toBottomOf="@+id/latitudeText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

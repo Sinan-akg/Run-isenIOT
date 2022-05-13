@@ -56,25 +56,22 @@ class MapsFragment : Fragment() {
                 requireActivity(), arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
-
                 ),
                 LOCATION_PERMISSION_REQUEST
 
             )
 
-            Toast.makeText(
-                requireActivity(),
-                "L'utilisateur a activé la localisation",
-                Toast.LENGTH_SHORT
-            ).show()
 
         } else {
-            Toast.makeText(
-                requireActivity(),
-                "L'utilisateur n'a pas activé la localisation",
-                Toast.LENGTH_SHORT
-            ).show()
 
+            requestPermissions(
+                requireActivity(), arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                LOCATION_PERMISSION_REQUEST
+
+            )
             Log.e("DB", "PERMISSION GRANTED")
             LOCATION_PERMISSION_REQUEST
         }}

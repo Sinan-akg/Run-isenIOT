@@ -44,7 +44,7 @@ class CreateAccountActivity : AppCompatActivity() {
         binding = ActivityCreateAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val imageClick8 = findViewById<ImageView>(R.id.backButton)
+        val imageClick8 = findViewById<ImageView>(R.id.backButtonn)
         imageClick8.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)

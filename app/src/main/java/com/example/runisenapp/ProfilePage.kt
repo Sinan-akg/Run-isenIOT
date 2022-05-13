@@ -18,7 +18,7 @@ class ProfilePage : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val imageClick2 = findViewById<ImageView>(R.id.backButton)
+        val imageClick2 = findViewById<ImageView>(R.id.backButtonn)
         imageClick2.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)

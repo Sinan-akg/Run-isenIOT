@@ -1,26 +1,59 @@
 package com.example.runisenapp
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
+import android.location.LocationManager
+import android.location.LocationRequest
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.os.Looper
+import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import com.example.runisenapp.databinding.ActivityHomeBinding
+import com.google.android.gms.location.*
 import kotlin.math.roundToInt
 
 
-class HomeActivity : AppCompatActivity()
-{
+class HomeActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityHomeBinding
     private var timeStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
+
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
+
+    private val callback= object:LocationCallback(){
+        override fun onLocationAvailability(p0: LocationAvailability) {
+            super.onLocationAvailability(p0)
+        }
+
+
+        override fun onLocationResult(result: LocationResult) {
+            val lastLocation= result.lastLocation
+            Log.d("TAG", "onLocationResult: ${lastLocation.longitude.toString()}")
+            Log.d("TAG", "onLocationResult: ${lastLocation.latitude.toString()}")
+
+            findViewById<TextView>(R.id.longitudeText).text="Longitude : "+lastLocation.longitude.toString()
+            findViewById<TextView>(R.id.latitudeText).text="Latitude : "+lastLocation.latitude.toString()
+
+            super.onLocationResult(result)
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -28,18 +61,82 @@ class HomeActivity : AppCompatActivity()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonStartStopRace.setOnClickListener{ startStopTimer() }
-        binding.resetButton.setOnClickListener{ resetTimer()}
+        fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(this)
+
+        onGPS()
+
+        findViewById<Button>(R.id.bt_location).setOnClickListener {
+            fetchLocation()
+        }
+
+        binding.buttonStartStopRace.setOnClickListener { startStopTimer() }
+        binding.resetButton.setOnClickListener { resetTimer() }
 
         serviceIntent = Intent(applicationContext, TimeService::class.java)
         registerReceiver(updateTime, IntentFilter(TimeService.TIMER_UPDATED))
 
-        val imageClick = findViewById<ImageView>(R.id.backButton)
+        val imageClick = findViewById<ImageView>(R.id.backButtonn)
         imageClick.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
+
+
+    fun onGPS() {
+
+        Log.d("TAG", "onGPS: ${isLocationEnabled()}")
+
+        if (!isLocationEnabled()) {
+            startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        }
+    else
+    {
+        fetchLocation()
+    }
+}
+
+
+    private fun fetchLocation() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        {
+            if(ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),200)
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION),200)
+            return
+            }else
+                {
+                requestLocation()
+                }
+            }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun requestLocation() {
+        Log.d("TAG", "requestLocation: ")
+        val requestLocation= LocationRequest()
+        requestLocation.priority = LocationRequest.QUALITY_HIGH_ACCURACY
+       requestLocation.interval = 0
+        requestLocation.fastestInterval = 0
+        requestLocation.numUpdates = 1
+        Looper.myLooper()?.let {
+            fusedLocationProviderClient.requestLocationUpdates(
+                requestLocation,callback, it
+            )
+        }
+
+    }
+
+
+    fun isLocationEnabled(): Boolean {
+        val locationManager =
+            applicationContext.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
 
     private fun resetTimer()
     {
@@ -63,6 +160,11 @@ class HomeActivity : AppCompatActivity()
         binding.buttonStartStopRace.text = "Stop"
         binding.buttonStartStopRace.icon = getDrawable(R.drawable.ic_pause)
         timeStarted = true
+        Toast.makeText(
+            this,
+            "L'utilisateur a activé la localisation",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun stopTimer() {

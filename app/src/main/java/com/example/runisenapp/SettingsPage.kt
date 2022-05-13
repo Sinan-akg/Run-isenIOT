@@ -3,13 +3,10 @@ package com.example.runisenapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.Toast
 import com.example.runisenapp.databinding.ActivitySettingsPageBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -52,7 +49,7 @@ class SettingsPage : AppCompatActivity() {
 
         }
 
-        val imageClick2 = findViewById<ImageView>(R.id.backButton)
+        val imageClick2 = findViewById<ImageView>(R.id.backButtonn)
         imageClick2.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
@@ -77,6 +74,7 @@ class SettingsPage : AppCompatActivity() {
 
         val animimage2 = findViewById<RadioButton>(R.id.imageAmateur)
         animimage2.setOnClickListener{
+
 
             animimage2.animate().apply{
                 duration = 200

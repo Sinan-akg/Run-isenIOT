@@ -10,7 +10,7 @@ class SemelleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_semelle)
 
-        val imageClick3 = findViewById<ImageView>(R.id.backButton)
+        val imageClick3 = findViewById<ImageView>(R.id.backButtonn)
         imageClick3.setOnClickListener {
             val intent = Intent(this, ProfilePage::class.java)
             startActivity(intent)

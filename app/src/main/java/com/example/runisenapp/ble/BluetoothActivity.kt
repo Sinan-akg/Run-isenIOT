@@ -6,23 +6,20 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Build.VERSION_CODES.S
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.runisenapp.ProfilePage
-import com.example.runisenapp.R
-import com.example.runisenapp.databinding.ActivityBluetoothBinding
 import androidx.core.view.isVisible
-import com.example.runisenapp.HomeActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.runisenapp.*
+import com.example.runisenapp.databinding.ActivityBluetoothBinding
 
 class BluetoothActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBluetoothBinding
@@ -42,14 +39,16 @@ class BluetoothActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bluetooth)
 
-        val imageClick10 = findViewById<ImageView>(R.id.backButton)
-        imageClick10.setOnClickListener {
-            val intent = Intent(this, ProfilePage::class.java)
-            startActivity(intent)
-        }
 
         binding = ActivityBluetoothBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.BLUETOOTH_SCAN,
+            Manifest.permission.BLUETOOTH_CONNECT
+        )
 
         when {
             bluetoothAdapter?.isEnabled == true ->
@@ -124,11 +123,13 @@ class BluetoothActivity : AppCompatActivity() {
                     Manifest.permission.BLUETOOTH_SCAN //scan (android 12)
 
                 ), ALL_PERMISSION_REQUEST_CODE
+
             )
 
 
         }
         startLeScanBLE(enable)
+        checkAllPermissionGranted()
     }
 
 
@@ -195,5 +196,20 @@ class BluetoothActivity : AppCompatActivity() {
         private const val ENABLE_BLUETOOTH_REQUEST_CODE = 1
         private const val ALL_PEMISSION_REQUEST_CODE = 100
         const val DEVICE_KEY = "Device"
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menubluetooth,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId) {
+            R.id.backMenu -> startActivity(Intent(this, ProfilePage::class.java))
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

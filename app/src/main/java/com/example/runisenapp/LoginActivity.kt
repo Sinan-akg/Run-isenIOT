@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_login)
 
-        val imageClick9 = findViewById<ImageView>(R.id.backButton)
+        val imageClick9 = findViewById<ImageView>(R.id.backButtonn)
         imageClick9.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)

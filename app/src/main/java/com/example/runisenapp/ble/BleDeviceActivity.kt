@@ -13,7 +13,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.runisenapp.ProfilePage
 import com.example.runisenapp.R
 import com.example.runisenapp.databinding.ActivityBleDeviceBinding
 import java.util.*
@@ -33,7 +32,7 @@ class BleDeviceActivity : AppCompatActivity() {
         binding = ActivityBleDeviceBinding.inflate(layoutInflater)
         setContentView((binding.root))
 
-        val imageClick5 = findViewById<ImageView>(R.id.backButton)
+        val imageClick5 = findViewById<ImageView>(R.id.backButtonn)
         imageClick5.setOnClickListener {
             val intent = Intent(this, BluetoothActivity::class.java)
             startActivity(intent)

@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/backButton"
+        android:id="@+id/backButtonn"
         android:layout_width="34dp"
         android:layout_height="46dp"
         android:layout_marginBottom="50dp"
@@ -340,6 +340,7 @@
 
         <RadioButton
             android:id="@+id/imageDebutant"
+            android:button="@android:color/transparent"
             android:layout_width="65dp"
             android:layout_height="76dp"
             android:layout_marginLeft="10dp"
@@ -352,6 +353,7 @@
 
         <RadioButton
             android:id="@+id/imageAmateur"
+            android:button="@android:color/transparent"
             android:layout_width="67dp"
             android:layout_height="76dp"
             android:layout_marginLeft="20dp"
@@ -364,6 +366,7 @@
 
         <RadioButton
             android:id="@+id/imageAvance"
+            android:button="@android:color/transparent"
             android:layout_width="60dp"
             android:layout_height="76dp"
             android:layout_marginLeft="20dp"
@@ -376,6 +379,7 @@
 
         <RadioButton
             android:id="@+id/imagePro"
+            android:button="@android:color/transparent"
             android:layout_width="65dp"
             android:layout_height="76dp"
             android:layout_marginLeft="20dp"

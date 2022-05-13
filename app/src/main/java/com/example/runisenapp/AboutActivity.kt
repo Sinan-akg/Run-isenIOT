@@ -10,7 +10,7 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
 
-        val imageClick5 = findViewById<ImageView>(R.id.backButton)
+        val imageClick5 = findViewById<ImageView>(R.id.backButtonn)
         imageClick5.setOnClickListener {
             val intent = Intent(this, ProfilePage::class.java)
             startActivity(intent)
