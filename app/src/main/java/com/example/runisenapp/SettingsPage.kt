@@ -1,39 +1,64 @@
 package com.example.runisenapp
 
+import android.app.Dialog
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
 import android.widget.ImageView
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import com.example.runisenapp.databinding.ActivitySettingsPageBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
 
 class SettingsPage : AppCompatActivity() {
 
     private lateinit var binding : ActivitySettingsPageBinding
     private lateinit var database : DatabaseReference
+  //  private lateinit var auth : FirebaseAuth
+  //  private lateinit var storageReference: StorageReference
+    private lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+       // auth = FirebaseAuth.getInstance()
+     //   val uid = auth.currentUser!!.uid
+      // a conserver  database = Firebase.database.reference
+        binding.doneButton.setOnClickListener{
+
+        showProgressBar()
+
+        val genre = binding.radioGroup.checkedRadioButtonId.toString()
         val lastname = binding.inputName.text.toString()
         val firstname = binding.inputfirstName.text.toString()
         val age = binding.inputage.text.toString()
         val taille = binding.inputTaille.text.toString()
-        val poid = binding.inputPoid.text.toString()
+        val poids = binding.inputPoid.text.toString()
         val pointure = binding.inputPied.text.toString()
+        val niveau = binding.radioGroup2.checkedRadioButtonId.toString()
 
-        binding.doneButton.setOnClickListener{
 
-            database = FirebaseDatabase.getInstance().getReference("Users")
-            val user = User(firstname,lastname,age,taille,poid,pointure)
-            database.child(lastname).setValue(user).addOnSuccessListener {
+        database = FirebaseDatabase.getInstance().getReference("Users")
+        val User = User(genre,lastname,firstname,age,taille,poids,pointure,niveau)
+            //database.child("user")
+
+
+        database.child(lastname).setValue(User).addOnSuccessListener (this) {
+
+                Log.d("Profile","écriture des données")
 
                 binding.inputName.text.clear()
                 binding.inputfirstName.text.clear()
@@ -42,11 +67,14 @@ class SettingsPage : AppCompatActivity() {
                 binding.inputPoid.text.clear()
                 binding.inputPied.text.clear()
 
-                Toast.makeText(this, "Profil enregistré !", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                Log.d("Profile","Profil enregistré")
+                Toast.makeText(this@SettingsPage, "Profil enregistré !", Toast.LENGTH_SHORT).show()
 
             }.addOnFailureListener{
-
-                Toast.makeText(this, "Erreur d'enregistrement", Toast.LENGTH_SHORT).show()
+                hideProgressBar()
+                Log.d("Profile","Erreur d'enregistrement")
+                Toast.makeText(this@SettingsPage, "Erreur d'enregistrement", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -130,6 +158,7 @@ class SettingsPage : AppCompatActivity() {
         }
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.menusettings,menu)
@@ -144,4 +173,17 @@ class SettingsPage : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+    private fun showProgressBar(){
+        dialog = Dialog(this@SettingsPage)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_wait)
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+    }
+
+    private fun hideProgressBar(){
+        dialog.dismiss()
+    }
+
 }

@@ -1,11 +1,16 @@
 package com.example.runisenapp
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.location.LocationManager
 import android.location.LocationRequest
 import android.os.Build
@@ -21,20 +26,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.runisenapp.databinding.ActivityHomeBinding
 import com.google.android.gms.location.*
 import kotlin.math.roundToInt
 
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), SensorEventListener {
 
     private lateinit var binding: ActivityHomeBinding
     private var timeStarted = false
     private lateinit var serviceIntent: Intent
     private var time = 0.0
-
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private var running = false
+    private var sensorManager: SensorManager? = null
+    private var totalSteps = 0f
+    private var previousTotalSteps = 52353f
 
+    val ACTIVITY_RECOGNITION_REQUEST_CODE = 100
 
     private val callback= object:LocationCallback(){
         override fun onLocationAvailability(p0: LocationAvailability) {
@@ -80,8 +90,33 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+        if (isPermissionGranted()) {
+            requestPermission()
+        }
+        //sensor compteur de pas
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
 
+    //fonction pour compteur de pas
+    override fun onResume() {
+        super.onResume()
+        running = true
+        var stepsSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+
+
+
+        if (stepsSensor == null) {
+            Toast.makeText(this, "Pas de capteurs de pas sur ce smartphone !", Toast.LENGTH_SHORT).show()
+        } else {
+            sensorManager?.registerListener(this, stepsSensor, SensorManager.SENSOR_DELAY_UI)
+        }
+    }
+    //compteur de pas
+    override fun onPause() {
+        super.onPause()
+        running = false
+        sensorManager?.unregisterListener(this)
+    }
 
     fun onGPS() {
 
@@ -143,7 +178,6 @@ class HomeActivity : AppCompatActivity() {
         stopTimer()
         time = 0.0
         binding.clock.text = getTimeStringFromDouble(time)
-
     }
 
     private fun startStopTimer()
@@ -160,11 +194,6 @@ class HomeActivity : AppCompatActivity() {
         binding.buttonStartStopRace.text = "Stop"
         binding.buttonStartStopRace.icon = getDrawable(R.drawable.ic_pause)
         timeStarted = true
-        Toast.makeText(
-            this,
-            "L'utilisateur a activé la localisation",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     private fun stopTimer() {
@@ -213,4 +242,83 @@ class HomeActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
+
+    override fun onSensorChanged(event: SensorEvent) {
+
+        // get textview by its id
+        var pasCompteurs = findViewById<TextView>(R.id.pasCompteurs)
+
+        if (running) {
+
+            //get the number of steps taken by the user.
+            totalSteps = event!!.values[0]
+
+            var currentSteps = totalSteps.toInt() - previousTotalSteps.toInt()
+
+            // set current steps in textview
+            pasCompteurs.text =("$currentSteps")
+
+            binding.btnReset.setOnClickListener{
+                currentSteps = 0
+                pasCompteurs.text ="0"
+            }
+
+            var calogris = findViewById<TextView>(R.id.caloriescompteur)
+            calogris.text = (currentSteps/ 25).toString()
+
+            binding.btnReset2.setOnClickListener{
+                calogris.text = "0"
+            }
+
+            val distance = findViewById<TextView>(R.id.distanceCompteur)
+            distance.text = (currentSteps * 0.76).toString()
+
+            binding.btnReset3.setOnClickListener{
+                distance.text = "0"
+            }
+        }
+
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        println("onAccuracyChanged: Sensor: $sensor; accuracy: $accuracy")
+    }
+
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACTIVITY_RECOGNITION),
+                ACTIVITY_RECOGNITION_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACTIVITY_RECOGNITION
+        ) != PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            ACTIVITY_RECOGNITION_REQUEST_CODE -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                ) {
+                    // Permission is granted. Continue the action or workflow
+                    // in your app.
+                }
+            }
+        }
+    }
 }
+

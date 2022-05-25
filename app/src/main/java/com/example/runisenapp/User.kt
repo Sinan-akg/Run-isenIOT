@@ -1,5 +1,4 @@
 package com.example.runisenapp
 
-data class User(val genre : String?= null, val firstname : String?= null, val lastname : String? = null, val age : String? = null, val taille : String? = null, val poid : String? = null, val pointure : String? = null, val niveau : String? = null, val userName : String? = null) {
-
-}
+data class User(var genre : String?= null, var lastname : String? = null, var firstname : String?= null, var age : String? = null, var taille : String? = null, var poids : String? = null, var pointure : String? = null, var niveau : String? = null)
+{}
